@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-const Sidebar = ({ isSidebarOpen, toggleSidebar, categories }) => {
+const Sidebar = ({ isSidebarOpen, toggleSidebar, categories, isLoggedIn }) => {
   const navigate = useNavigate();
   const sidebarRef = useRef(null);  // 사이드바 참조
 
@@ -29,6 +29,11 @@ const Sidebar = ({ isSidebarOpen, toggleSidebar, categories }) => {
     };
   }, [isSidebarOpen, toggleSidebar]);
 
+  const handleMyPageClick = () => {
+    navigate('/mypage');  // 내 정보 페이지로 이동
+    toggleSidebar();  // 사이드바 닫기
+  };
+
   return (
     <div ref={sidebarRef} className={`sidebar ${isSidebarOpen ? 'open' : ''}`}>
       <button className="close-btn" onClick={toggleSidebar}>X</button>
@@ -36,8 +41,14 @@ const Sidebar = ({ isSidebarOpen, toggleSidebar, categories }) => {
 
       {/* 로그인/회원가입 섹션 */}
       <div className="sidebar-section">
-        <button className="login-button" onClick={() => { navigate('/login'); toggleSidebar(); }}>로그인</button>
-        <button className="signup-button" onClick={() => { navigate('/signup'); toggleSidebar(); }}>회원가입</button>
+        {isLoggedIn ? (
+          <button className="my-page-button" onClick={handleMyPageClick}>내 정보</button>
+        ) : (
+          <>
+            <button className="login-button" onClick={() => { navigate('/login'); toggleSidebar(); }}>로그인</button>
+            <button className="signup-button" onClick={() => { navigate('/signup'); toggleSidebar(); }}>회원가입</button>
+          </>
+        )}
       </div>
 
       {/* 카테고리 섹션 */}

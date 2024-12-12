@@ -6,6 +6,7 @@ import SignUp from './components/Auth/SignUp';
 import Login from './components/Auth/Login';
 import Sidebar from './components/Sidebar'; // 사이드바 컴포넌트 import
 import './App.css';
+import MyPage from './components/MyPage';
 
 function App() {
   const [categories, setCategories] = useState([]);
@@ -58,6 +59,8 @@ function App() {
         <Route path="/signup" element={<SignUp />} />
         <Route path="/login" element={<Login />} />
         <Route path="/category/:categoryName" element={<NewsList />} /> {/* 카테고리별 뉴스 페이지 */}
+        {/* "/mypage" 경로에서 MyPage 컴포넌트를 렌더링 */}
+        <Route path="/mypage" element={<MyPage />} />
       </Routes>
       </div>
     </div>
